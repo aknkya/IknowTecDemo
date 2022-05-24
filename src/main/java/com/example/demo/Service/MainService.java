@@ -3,17 +3,14 @@ package com.example.demo.Service;
 import com.example.demo.DAO.FileDAO;
 import com.example.demo.Entity.FileEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.File;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.List;
+
 
 @Service
 public class MainService {
@@ -32,6 +29,28 @@ public class MainService {
         List<FileEntity> files=fileDAO.findAll();
 
         return files;
+    }
+
+    public void deleteFileOnDataBaseById(Long fileId){
+        fileDAO.deleteById(fileId);
+    }
+
+    public void deleteFileOnLocalSystem(String filename){
+
+
+        File file=new File(filename);
+        if(file.exists()){
+            file.delete();
+        }
+
+    }
+
+    public String findFileByIdOnLocalSystem(Long fileId){
+
+     FileEntity fileEntity=fileDAO.findByFileName(fileId);
+
+     return fileEntity.getFilePath();
+
     }
 
 }

@@ -10,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -32,20 +29,25 @@ public class MainController {
     private MainService mainService;
 
 
+
+   @GetMapping("/deletefile/{fileId}")
+   public String deleteFile(@PathVariable("fileId") Long fileid){
+
+
+       mainService.deleteFileOnLocalSystem(mainService.findFileByIdOnLocalSystem(fileid));
+
+
+        mainService.deleteFileOnDataBaseById(fileid);
+
+       return "mainpage";
+   }
+
+
 @GetMapping("/filespage")
 public String getFilesPage(Model model){
 
 
-    File folder = new File("src/files");
-    File[] listOfFiles = folder.listFiles();
 
-    for (int i = 0; i < listOfFiles.length; i++) {
-        if (listOfFiles[i].isFile()) {
-            System.out.println(listOfFiles[i].getName());
-        } else if (listOfFiles[i].isDirectory()) {
-            System.out.println("Directory " + listOfFiles[i].getName());
-        }
-    }
 
 
      List<FileEntity> files=mainService.getAllFiles();

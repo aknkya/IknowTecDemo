@@ -29,6 +29,10 @@
         <td th:text="${files.fileSize}">Position</td>
         <td th:text="${files.fileType}">Office</td>
 
+
+        <td><a class="btn btn-danger" th:href="@{/deletefile/{fileId}(fileId=${files.fileId})}">Delete Todo</a></td>
+
+
     </tr>
 
     </tbody>
