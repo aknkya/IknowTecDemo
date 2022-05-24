@@ -76,6 +76,7 @@ public String getFilesPage(Model model){
 
         File f = new File("src/files/" +file.getOriginalFilename());
 
+        String ext1 = FilenameUtils.getExtension(f.getAbsolutePath()); // returns "txt"
 
         long fileSize = f.length();
 
@@ -86,18 +87,26 @@ public String getFilesPage(Model model){
         }
 
 
-        try (OutputStream os = Files.newOutputStream(filepath)) {
-            os.write(file.getBytes());
-        }
-        catch (Exception e) {
 
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+       if(ext1.contains("png") || ext1.contains("jpeg") || ext1.contains("jpg") || ext1.contains("docx") || ext1.contains("pdf") || ext1.contains("xlsx") ) {
+           try (OutputStream os = Files.newOutputStream(filepath)) {
+               os.write(file.getBytes());
+           } catch (Exception e) {
 
-        }
-        String ext1 = FilenameUtils.getExtension(f.getAbsolutePath()); // returns "txt"
-        mainService.addNewFile("src/files/" +file.getOriginalFilename(),f.length(),ext1);
+               return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
-        return ResponseEntity.ok("File uploaded successfully.");
+           }
+
+
+           mainService.addNewFile("src/files/" + file.getOriginalFilename(), f.length(), ext1);
+
+
+           return ResponseEntity.ok("File uploaded successfully.");
+       }
+
+       else
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
 
     }
 }

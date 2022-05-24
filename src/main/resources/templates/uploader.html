@@ -24,6 +24,12 @@ async function uploadFile() {
    if (response.status == 409) {
     alert("File Size is to big");
   }
+
+   if (response.status == 400) {
+    alert("File Type is Not Supported");
+  }
+
+
 }
 </script>
 
