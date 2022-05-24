@@ -16,9 +16,6 @@ public interface FileDAO extends JpaRepository<FileEntity,Long> {
     public FileEntity findByFileByID(Long fileId);
 
 
-    @Query("SELECT u FROM FileEntity u where u.fileName=?1 limit:1")
-    public FileEntity findfileByName(String fileName);
-
 
 
 

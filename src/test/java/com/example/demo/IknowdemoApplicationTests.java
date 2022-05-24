@@ -5,20 +5,19 @@ import com.example.demo.Entity.FileEntity;
 import com.example.demo.Service.MainService;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 
 @SpringBootTest
 class IknowdemoApplicationTests {
 
-	@Mock
+	@Autowired
 	MainService mainService;
 
-	@MockBean
+	@Autowired
+
 	FileDAO fileDAO;
 
 	@Test
@@ -50,7 +49,7 @@ class IknowdemoApplicationTests {
 
 		mainService.addNewFile(fileEntity.getFilePath(), fileEntity.getFileSize(), fileEntity.getFileType());
 
-		FileEntity fileEntity1=fileDAO.findfileByName(fileEntity.getFilePath());
+		FileEntity fileEntity1=fileDAO.findByFileByID(fileEntity.getFileId());
 
 		Assert.assertEquals(fileEntity1.getFilePath(),fileEntity.getFilePath());
   }
