@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,23 +11,30 @@
     <title>Hello, world!</title>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col text-center">
 
-            <form action="/uploader">
 
-                <button type="submit" class="btn btn-outline-success">DOSYA YUKLEME EKRANI</button>
-            </form>
 
-            <form action="/filespage">
+<table class="table table-dark">
+    <thead>
+    <tr>
 
-                <button type="submit" class="btn btn-outline-success">DOSYALARI GORME EKRANI</button>
-            </form>
+        <th scope="col">FilePath</th>
+        <th scope="col">FileSize</th>
+        <th scope="col">File extention</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="files : ${files}">
+        <td th:text="${files.filePath}">Name</td>
+        <td th:text="${files.fileSize}">Position</td>
+        <td th:text="${files.fileType}">Office</td>
 
-        </div>
-    </div>
-</div>
+    </tr>
+
+    </tbody>
+</table>
+
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
