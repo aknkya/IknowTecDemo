@@ -47,7 +47,7 @@ public class MainService {
 
     public String findFileByIdOnLocalSystem(Long fileId){
 
-     FileEntity fileEntity=fileDAO.findByFileName(fileId);
+     FileEntity fileEntity=fileDAO.findByFileByID(fileId);
 
      return fileEntity.getFilePath();
 

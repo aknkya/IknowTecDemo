@@ -6,11 +6,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface FileDAO extends JpaRepository<FileEntity,Long> {
 
 
     @Query("SELECT u FROM FileEntity u where u.fileId=?1")
-    public FileEntity findByFileName(Long fileId);
+    public FileEntity findByFileByID(Long fileId);
+
+
+    @Query("SELECT u FROM FileEntity u where u.fileName=?1 limit:1")
+    public FileEntity findfileByName(String fileName);
+
+
+
 
 }
